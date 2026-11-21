@@ -23,7 +23,7 @@ Linux에서 Ctrl+C는 SIGINT, Ctrl+Z는 SIGTSTP, Ctrl+\는 SIGQUIT을 보냅니�
 
 | 담당 | 명령 | 구현 파일 |
 |---|---|---|
-| 공통 셸·디렉터리 명령 담당 | `ls`, `pwd`, `cd` | `src/directory_commands.c` |
+| 박태양 (팀장) | 공통 셸, `ls`, `pwd`, `cd` | `src/shell.c`, `src/parser.c`, `src/directory_commands.c` |
 | 주재홍 | `mkdir`, `rmdir`, `ln`, `cp` | `src/mkdir.c`, `src/rmdir.c`, `src/ln.c`, `src/cp.c` (예정) |
 | 하지성 | `rm`, `mv`, `cat`, `grep` | `src/rm.c`, `src/mv.c`, `src/cat.c`, `src/grep.c` (예정) |
 
