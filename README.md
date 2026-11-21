@@ -32,11 +32,15 @@ exit
 
 ## 역할 분담
 
-| 담당 | 명령 | 구현 파일 |
-|---|---|---|
-| 박태양 (팀장) | 공통 셸, `ls`, `pwd`, `cd` | `src/shell.c`, `src/parser.c`, `src/directory_commands.c` |
-| 주재홍 | `mkdir`, `rmdir`, `ln`, `cp` | `src/mkdir.c`, `src/rmdir.c`, `src/ln.c`, `src/cp.c` (예정) |
-| 하지성 | `rm`, `mv`, `cat`, `grep` | `src/rm.c`, `src/mv.c`, `src/cat.c`, `src/grep.c` (예정) |
+| 과제 번호 | 담당 | 기능·명령 | 구현 파일 |
+|---|---|---|---|
+| 1번 | 박태양 (팀장) | `exit`로 셸 종료 | `src/shell.c` |
+| 2번 | 박태양 (팀장) | `&` 백그라운드 실행 | `src/shell.c`, `src/parser.c` |
+| 3번 | 박태양 (팀장) | Ctrl+C 등 터미널 시그널 처리 | `src/shell.c` |
+| 4번 | 박태양 (팀장) | `<`, `>` 리다이렉션 및 파이프(`\|`) | `src/shell.c`, `src/parser.c` |
+| 5번 | 박태양 (팀장) | `ls`, `pwd`, `cd` | `src/directory_commands.c` |
+| 5번 | 주재홍 | `mkdir`, `rmdir`, `ln`, `cp` | `src/mkdir.c`, `src/rmdir.c`, `src/ln.c`, `src/cp.c` (예정) |
+| 5번 | 하지성 | `rm`, `mv`, `cat`, `grep` | `src/rm.c`, `src/mv.c`, `src/cat.c`, `src/grep.c` (예정) |
 
 명령 함수는 `int cmd_name(int argc, char *const argv[])` 형식으로 작성합니다. 일반 출력은 `stdout`, 오류 메시지는 `stderr`를 사용합니다. `exit()`를 호출하는 대신 성공은 0, 실행 오류는 1, 인자 오류는 2를 반환합니다. 통합할 때 `include/commands.h`에 선언을, `src/shell.c`의 `builtins` 표에 명령을, `Makefile`의 `OBJ`에 오브젝트 파일을 추가합니다. 등록 예시는 기존 `cmd_ls`를 참고합니다.
 
