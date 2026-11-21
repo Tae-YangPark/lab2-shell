@@ -53,3 +53,8 @@ dkms.conf
 
 # debug information files
 *.dwo
+
+# Lab2 Shell build and test output
+/lab2-shell
+/src/*.o
+/tests/__pycache__/
