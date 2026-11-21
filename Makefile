@@ -2,8 +2,7 @@ CC ?= cc
 CPPFLAGS += -D_POSIX_C_SOURCE=200809L -Iinclude
 CFLAGS ?= -O2
 CFLAGS += -std=c11 -Wall -Wextra -Wpedantic
-OBJ = src/shell.o src/parser.o src/directory_commands.o
-
+OBJ = src/shell.o src/parser.o src/directory_commands.o src/mkdir.o src/rmdir.o src/ln.o src/cp.o
 .PHONY: all test clean
 all: lab2-shell
 

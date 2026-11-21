@@ -12,7 +12,13 @@
 #include <unistd.h>
 
 static const struct command_entry builtins[] = {
-    {"ls", cmd_ls}, {"pwd", cmd_pwd}, {"cd", cmd_cd},
+    {"ls", cmd_ls},
+    {"pwd", cmd_pwd},
+    {"cd", cmd_cd},
+    {"mkdir", cmd_mkdir},
+    {"rmdir", cmd_rmdir},
+    {"ln", cmd_ln},
+    {"cp", cmd_cp},
 };
 
 static int interactive;

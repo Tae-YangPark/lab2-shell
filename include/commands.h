@@ -14,5 +14,8 @@ struct command_entry {
 int cmd_ls(int argc, char *const argv[]);
 int cmd_pwd(int argc, char *const argv[]);
 int cmd_cd(int argc, char *const argv[]);
-
+int cmd_mkdir(int argc, char *const argv[]);
+int cmd_rmdir(int argc, char *const argv[]);
+int cmd_ln(int argc, char *const argv[]);
+int cmd_cp(int argc, char *const argv[]);
 #endif
