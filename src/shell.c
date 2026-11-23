@@ -19,6 +19,10 @@ static const struct command_entry builtins[] = {
     {"rmdir", cmd_rmdir},
     {"ln", cmd_ln},
     {"cp", cmd_cp},
+    {"rm", cmd_rm},
+    {"mv", cmd_mv},
+    {"cat", cmd_cat},
+    {"grep", cmd_grep},
 };
 
 static int interactive;

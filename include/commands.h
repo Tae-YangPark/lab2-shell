@@ -18,4 +18,8 @@ int cmd_mkdir(int argc, char *const argv[]);
 int cmd_rmdir(int argc, char *const argv[]);
 int cmd_ln(int argc, char *const argv[]);
 int cmd_cp(int argc, char *const argv[]);
+int cmd_rm(int argc, char *const argv[]);
+int cmd_mv(int argc, char *const argv[]);
+int cmd_cat(int argc, char *const argv[]);
+int cmd_grep(int argc, char *const argv[]);
 #endif
