@@ -63,6 +63,22 @@ def test_batch(cwd):
     assert result.returncode == 0 and result.stdout == str(cwd) + "\n", result
 
 
+def test_file_commands(cwd):
+    (cwd / "first").write_text("apple\nbanana\n")
+    (cwd / "second").write_text("apricot\n")
+    (cwd / "target").mkdir()
+    result = batch("cat first second | grep '^a' >matches\n"
+                   "mv first second target\nrm target/first\n", cwd,
+                   "/nonexistent")
+    assert result.returncode == 0 and not result.stderr, result
+    assert (cwd / "matches").read_text() == "apple\napricot\n"
+    assert not (cwd / "target/first").exists()
+    assert (cwd / "target/second").read_text() == "apricot\n"
+    assert batch("grep absent target/second\n", cwd).returncode == 1
+    assert batch("grep '[ ' target/second\n", cwd).returncode == 2
+    assert batch("rm missing\n", cwd).returncode == 1
+
+
 def test_terminal(cwd):
     pid, fd = pty.fork()
     if pid == 0:
@@ -130,5 +146,7 @@ with tempfile.TemporaryDirectory() as tmp:
     cwd = pathlib.Path(tmp).resolve()
     test_batch(cwd)
     print("PASS commands, cd, exit, redirection, pipes, parser errors")
+    test_file_commands(cwd)
+    print("PASS rm, mv, cat, grep")
     test_terminal(cwd)
     print("PASS background reaping and PTY Ctrl+C, Ctrl+\\\\, Ctrl+Z")
