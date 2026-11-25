@@ -79,6 +79,20 @@ def test_file_commands(cwd):
     assert batch("rm missing\n", cwd).returncode == 1
 
 
+def test_cp_long_paths(cwd):
+    (cwd / "abcdefghij").write_text("source\n")
+    (cwd / "victimX").write_text("unchanged\n")
+    (cwd / "abcde").write_text("unchanged\n")
+    prefix = "./" * 2044
+    for command, victim in [
+        (f"cp abcdefghij {prefix}victimXextra\n", "victimX"),
+        (f"cp abcdefghij {prefix}.\n", "abcde"),
+    ]:
+        result = batch(command, cwd)
+        assert result.returncode == 1 and "too long" in result.stderr, result
+        assert (cwd / victim).read_text() == "unchanged\n"
+
+
 def test_terminal(cwd):
     pid, fd = pty.fork()
     if pid == 0:
@@ -148,5 +162,7 @@ with tempfile.TemporaryDirectory() as tmp:
     print("PASS commands, cd, exit, redirection, pipes, parser errors")
     test_file_commands(cwd)
     print("PASS rm, mv, cat, grep")
+    test_cp_long_paths(cwd)
+    print("PASS cp rejects truncated destination paths")
     test_terminal(cwd)
     print("PASS background reaping and PTY Ctrl+C, Ctrl+\\\\, Ctrl+Z")

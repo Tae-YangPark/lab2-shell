@@ -92,12 +92,18 @@ int cmd_cp(int argc, char *const argv[])
     int error = 0;
     for (; i < argc - 1; i++) {
         char path[PATH_MAX];
+        int length;
         if (dest_is_dir) {
             const char *slash = strrchr(argv[i], '/');
             const char *name = slash ? slash + 1 : argv[i];
-            snprintf(path, sizeof path, "%s/%s", dest, name);
+            length = snprintf(path, sizeof path, "%s/%s", dest, name);
         } else {
-            snprintf(path, sizeof path, "%s", dest);
+            length = snprintf(path, sizeof path, "%s", dest);
+        }
+        if (length < 0 || (size_t)length >= sizeof path) {
+            fprintf(stderr, "cp: destination path is too long: %s\n", dest);
+            error = 1;
+            continue;
         }
         if (copy_file(argv[i], path))
             error = 1;
